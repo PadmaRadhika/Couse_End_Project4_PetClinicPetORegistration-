@@ -24,7 +24,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @Configuration
-@CrossOrigin(origins = "http://localhost:4200") // Allow CORS from Angular app
+@CrossOrigin(origins = "*") // Allow CORS from Angular app
 @RequestMapping(value = "/pet")
 public class PetController {
 	
@@ -36,7 +36,7 @@ public class PetController {
 	@PostMapping
     public ResponseEntity<?> createPet(@RequestBody Pet pet) {
 		System.out.println("***pet object::"+pet.toString());
-		webClient = webClientBuilder.baseUrl("http://localhost:8085").build();		
+		webClient = webClientBuilder.baseUrl("http://ec2-54-86-178-106.compute-1.amazonaws.com:8085").build();		
         Mono<Owner> ownerMono =  webClient.get()
                 .uri("/owner/{id}", pet.getOwnerId())
                 .retrieve()                
